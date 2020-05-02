@@ -1,0 +1,72 @@
+plugins {
+  id("application")
+  id("jacoco")
+
+  id("com.diffplug.gradle.spotless")
+  id("com.github.ben-manes.versions")
+  id("com.github.johnrengelman.shadow")
+}
+
+repositories {
+  mavenCentral()
+}
+
+group = "com.github.azell.codingchallenge"
+version = "0.0.1-SNAPSHOT"
+
+apply(from: "$rootDir/gradle/dependencies.gradle")
+
+// google-java-format support
+spotless {
+  java {
+    googleJavaFormat()
+  }
+}
+
+tasks {
+  application {
+    applicationDefaultJvmArgs = ["-XX:+ExitOnOutOfMemoryError", "-Xmx1g"]
+  }
+
+  compileJava {
+    dependsOn("spotlessApply")
+
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+
+    options.compilerArgs << "-parameters"
+  }
+
+  test {
+    useJUnitPlatform()
+
+    testLogging {
+      events("PASSED", "FAILED", "SKIPPED")
+      showStandardStreams = true
+    }
+
+    afterSuite { desc, result ->
+      if (!desc.parent) {
+        println("\nTest result: ${result.resultType}")
+        println("Test summary: ${result.testCount} tests completed, " +
+          "${result.successfulTestCount} succeeded, " +
+          "${result.failedTestCount} failed, " +
+          "${result.skippedTestCount} skipped")
+      }
+    }
+
+    finalizedBy(jacocoTestReport)
+  }
+}
+
+mainClassName = "com.github.azell.codingchallenge.App"
+
+dependencies {
+  // JUnit 5 testing
+  testImplementation(Libs.assertj)
+  testImplementation(Libs.junit5)
+
+  // Logging
+  implementation(Libs.slf4jApi)
+  runtime(Libs.logbackClassic)
+}
