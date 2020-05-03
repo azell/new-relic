@@ -11,7 +11,7 @@ $ ./gradlew build
 $ java -XX:+ExitOnOutOfMemoryError -Xmx1g -jar build/libs/codingchallenge-0.0.1-SNAPSHOT-all.jar
 ```
 
-There is minimal log output using SLF4J/Logback to **stderr**. This can be redirected to **/dev/null** if the log output is found to be districting. Logback configuration is in `src/main/resources/logback.xml`.
+There is minimal log output using SLF4J/Logback to **stderr**. This can be redirected to **/dev/null** if the log output is found to be distracting. Logback configuration is in `src/main/resources/logback.xml`.
 
 ### Testing
 
@@ -77,7 +77,7 @@ Though Java features such as `Streams` increase developer productivity, they typ
 
 The scalability benefits of kernel threads decrease as contention rises. The amount of data shared between threads should be minimized along with the size of critical sections.
 
-Limiting write access to a [single thread or process](https://mechanical-sympathy.blogspot.com/2011/09/single-writer-principle.html) may yield performance benefits as well as removing race conditions. Examples include Kafka, HBase, Disruptor, etc. Allowming multi-masters (Cassandra, Riak) leads to complicated conflict resolution deisgns such as CRDTs and vector clocks.
+Limiting write access to a [single thread or process](https://mechanical-sympathy.blogspot.com/2011/09/single-writer-principle.html) may yield performance benefits as well as removing race conditions. Examples include Kafka, HBase, Disruptor, etc. Allowing multi-masters (Cassandra, Riak) leads to complicated conflict resolution designs such as CRDTs and vector clocks.
 
 ### Implementation Notes
 
@@ -87,6 +87,6 @@ It is possible that the server will be blocked waiting for a new connection when
 
 The application uses a blocking queue to share data between the clients ingesting records, and the consumer responsible for de-duping and persisting records. The blocking behavior provides backpressure when the consumer is falling behind without skyrocketing memory usage.
 
-`Executors` are used to manage threads and scheduled tasks. Threads will exit if they detect they have been interrupted, typically during exector shutdown.
+`Executors` are used to manage threads and scheduled tasks. Threads will exit if they detect they have been interrupted, typically during executor shutdown.
 
 A `BitSet` is used to de-dupe records.
