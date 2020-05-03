@@ -1,0 +1,8 @@
+#!/bin/bash
+
+exec java \
+  -XX:+UnlockDiagnosticVMOptions \
+  -XX:+DebugNonSafepoints \
+  -XX:+ExitOnOutOfMemoryError \
+  -Xms1g -Xmx1g \
+  -jar build/libs/codingchallenge-0.0.1-SNAPSHOT-all.jar
