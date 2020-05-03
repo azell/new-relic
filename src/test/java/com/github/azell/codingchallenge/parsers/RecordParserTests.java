@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class RecordParserTests {
   @Test
   void shouldParseRecords() throws IOException {
-    var input = new ByteArrayInputStream(asBytes("0123456789\r\n"));
+    var input = new ByteArrayInputStream(asBytes("0123456789\r\r\n"));
     var buffer = new byte[8];
     var parser = new RecordParser();
 
@@ -24,9 +24,9 @@ class RecordParserTests {
     /* Second case: complete record with delimiter */
     parser.parse(input, buffer, asBytes("\r\n"));
 
-    assertThat(parser.nbytes()).isEqualTo(4);
+    assertThat(parser.nbytes()).isEqualTo(5);
     assertThat(parser.eol()).isTrue();
-    assertThat(asString(buffer, parser)).isEqualTo("89\r\n");
+    assertThat(asString(buffer, parser)).isEqualTo("89\r\r\n");
 
     /* Third case: end of file */
     parser.parse(input, buffer, asBytes("\r\n"));

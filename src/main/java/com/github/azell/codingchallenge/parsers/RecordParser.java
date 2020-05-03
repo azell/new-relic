@@ -43,7 +43,7 @@ public class RecordParser {
 
       /* check if we have matched the record delimiter */
       if (delimiter[delimIdx] != b) {
-        delimIdx = 0;
+        delimIdx = (delimiter[0] != b) ? 0 : 1;
       } else if (++delimIdx == delimiter.length) {
         this.eol = true;
         break;
