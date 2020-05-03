@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require "socket"
+
+socket = TCPSocket.open("localhost", 4000)
+lines = 0
+
+ARGF.each_line { |line|
+  socket.write line
+  lines += 1
+
+  puts lines if ((lines % 10_000) == 0)
+}
+
+socket.close  
+puts "Total lines: #{lines}"

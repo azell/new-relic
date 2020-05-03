@@ -1,0 +1,8 @@
+#!/bin/bash
+
+awk 'BEGIN {
+  srand()
+  for (i = 0; i < 10000000; i++) {
+    printf("%09d\n", int(rand() * 1000000000))
+  }
+}'
