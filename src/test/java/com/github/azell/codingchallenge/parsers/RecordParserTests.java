@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 class RecordParserTests {
   @Test
-  void shouldRecordParsers() throws IOException {
+  void shouldParseRecords() throws IOException {
     var input = new ByteArrayInputStream(asBytes("0123456789\r\n"));
     var buffer = new byte[8];
     var parser = new RecordParser();
