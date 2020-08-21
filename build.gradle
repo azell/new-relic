@@ -2,7 +2,7 @@ plugins {
   id("application")
   id("jacoco")
 
-  id("com.diffplug.gradle.spotless")
+  id("com.diffplug.spotless")
   id("com.github.ben-manes.versions")
   id("com.github.johnrengelman.shadow")
 }
