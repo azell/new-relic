@@ -63,10 +63,10 @@ mainClassName = "com.github.azell.codingchallenge.App"
 
 dependencies {
   // JUnit 5 testing
-  testImplementation(Libs.assertj)
-  testImplementation(Libs.junit5)
+  testImplementation("org.assertj:assertj-core")
+  testImplementation("org.junit.jupiter:junit-jupiter")
 
   // Logging
-  implementation(Libs.slf4jApi)
-  runtime(Libs.logbackClassic)
+  implementation("org.slf4j:slf4j-api")
+  runtime("ch.qos.logback:logback-classic")
 }
